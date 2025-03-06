@@ -71,6 +71,23 @@ def longest_palindromic_substring(s):
     * s consists of only digits and English letters.
 
 2. Step 2: Install Pytest
+* Add pytest dependency to the Pipfile and install
+```bash
+pipenv install pytest
+```
+* Create a pytest.ini file in the root directory with the following code:
+```
+[pytest]
+pythonpath = . lib
+```
+* Create a testing folder inside lib/
+```bash
+mkdir lib/testing
+```
+* Create the test_palindrome.py file
+```bash
+touch lib/testing/test_palindrome.py
+```
 
 
 3. Step 3: Write Your Test Suite
