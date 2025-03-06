@@ -33,14 +33,22 @@ Before implementing the function, the team follows a Test-Driven Development (TD
 
 ## Instructions
 ### Set Up
+Before we begin coding, let's complete the initial setup for this lesson: 
 
+1. Fork and Clone
+    * Fork the repository to your GitHub account.
+    * Clone the forked repository to your local machine.
+2. Open and Run File
+    * Open the project in VSCode.
+    * Run `pipenv install` to install all necessary dependencies.
+    * Run `pipenv shell` to enter the virtual environment.
 
 ### Instructions
 1. Step 1: Understand the Challenge (5 min)
 * You need to write tests for a function that finds the longest palindromic substring in a given string. A palindrome is a word, phrase, or sequence that reads the same backward as forward.
 * Function Signature
 ```python
-def longest_palindromic_substring(s: str) -> str:
+def longest_palindromic_substring(s):
     """
     Given a string s, return the longest palindromic substring.
     """
@@ -60,45 +68,71 @@ def longest_palindromic_substring(s: str) -> str:
     * 1 <= s.length <= 1000
     * s consists of only digits and English letters.
 
-2. Step 2: Write Your Test Suite
-Your primary task is to create a Pytest test suite for the function in test_palindrome.py.
-Your test cases should cover:
-Basic Cases – Check common inputs return expected outputs.
-Edge Cases – Handle single-character strings, empty strings, long strings, and no-palindrome cases.
-⚠️ Do NOT implement longest_palindromic_substring yet! Follow the Test-Driven Development (TDD) approach.
+2. Step 2: Install Pytest
 
-3. Step 3: Run the Tests
-Once you’ve written your test cases, run them using pytest:
+
+3. Step 3: Write Your Test Suite
+* Your primary task is to create a Pytest test suite for the function in test_palindrome.py.
+* Your test cases should cover:
+    * Basic Cases – Check common inputs return expected outputs.
+    * Edge Cases – Handle single-character strings, empty strings, long strings, and no-palindrome cases.
+* ⚠️ Do NOT implement longest_palindromic_substring yet! Follow the Test-Driven Development (TDD) approach.
+
+4. Step 4: Run the Tests
+* Once you’ve written your test cases, run them using pytest:
+```bash
 pytest
-You should see failing tests, since the function is not yet implemented. This is expected! 
-If any of the tests pass without a solution implemented, something is wrong with your tests and you’ll need to debug.
-
-4. Handle e
+```
+* You should see failing tests, since the function is not yet implemented. This is expected! 
+* If any of the tests pass without a solution implemented, something is wrong with your tests and you’ll need to debug.
 
 5. Step 5: Implement the Function
-Now, solve the algorithm by adding code to the function in palindrome.py until all tests pass.
-Break Glass Solution
-🚨 The purpose of the lab is the test suite implementation, so if you cannot solve the problem on your own that’s okay! You can use this working solution:
-def longest_palindromic_substring(s: str) -> str:
-    if not s:
-        return ""
+* Now, solve the algorithm by adding code to the function in palindrome.py until all tests pass.
+    * Break Glass Solution
+        * 🚨 The purpose of the lab is the test suite implementation, so if you cannot solve the problem on your own that’s okay! You can use this working solution:
+
+```python
+def longest_palindromic_substring(s):
+    """
+    Given a string s, return the longest palindromic substring.
+    """
+    n = len(s)
+    if n < 2:
+        return s
     
-    start, max_length = 0, 0
-    
-    for i in range(len(s)):
-        for j in range(i, len(s)):
-            substring = s[i:j+1]
-            if substring == substring[::-1] and (j - i + 1) > max_length:
-                start, max_length = i, j - i + 1
-    
-    return s[start:start + max_length]
+    start = 0
+    max_len = 1
+
+    def expand_around_center(left, right):
+        while left >= 0 and right < n and s[left] == s[right]:
+            left -= 1
+            right += 1
+        return right - left - 1
+
+    for i in range(n):
+        len1 = expand_around_center(i, i)
+        len2 = expand_around_center(i, i + 1)
+        max_curr_len = max(len1, len2)
+        if max_curr_len > max_len:
+            max_len = max_curr_len
+            start = i - (max_len - 1) // 2
+            
+    return s[start:start + max_len]
+```
 
 
-Step 6: Verify and Submit (10 min)
-Confirm your tests pass:
+6. Step 6: Handle Additional Edge Cases and Debug (if needed)
+* Are there any edge cases your test suite is not handling? If so, add additional tests to ensure edge case coverage.
+* Is there any code you need to clean up or debug in the test or solution?
+
+7. Step 7: Verify and Submit
+* Confirm your tests pass:
+```bash
 pytest
-Push your final version to GitHub:
+```
+* Push your final version to GitHub:
+```bash
 git add .
 git commit -m "Completed testing lab"
 git push origin main
-
+```
