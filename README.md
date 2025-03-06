@@ -46,7 +46,7 @@ Before we begin coding, let's complete the initial setup for this lesson:
     * Run `pipenv shell` to enter the virtual environment.
 
 ### Instructions
-1. Step 1: Understand the Challenge (5 min)
+1. Step 1: Understand the Challenge
 * You need to write tests for a function that finds the longest palindromic substring in a given string. A palindrome is a word, phrase, or sequence that reads the same backward as forward.
 * Function Signature
 ```python
