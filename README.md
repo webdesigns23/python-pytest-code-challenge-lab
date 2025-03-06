@@ -73,7 +73,7 @@ def longest_palindromic_substring(s):
 2. Step 2: Install Pytest
 * Add pytest dependency to the Pipfile and install
 ```bash
-pipenv install pytest
+pip install pytest
 ```
 * Create a pytest.ini file in the root directory with the following code:
 ```
